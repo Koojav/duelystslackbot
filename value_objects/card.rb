@@ -1,15 +1,22 @@
 module DCG
   module ValueObjects
-    class Card
+    class Card < Hash
 
-      attr_accessor :name
-      attr_accessor :attack
-      attr_accessor :defense
-      attr_accessor :cost
-      attr_accessor :type
-      attr_accessor :army
-      attr_accessor :rarity
-      attr_accessor :description
+      def name
+        self[:name]
+      end
+
+      def name=(value)
+        self[:name] = value
+      end
+
+      def image_url
+        self[:image_url]
+        end
+
+      def image_url=(value)
+        self[:image_url] = value
+      end
 
     end
   end

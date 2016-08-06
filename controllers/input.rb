@@ -17,11 +17,12 @@ module DCG
       # @param [Hash] params Parameters received from Slack's custom command
       # @return [DCG::Models::Base] Returns a model that is responsible for consuming specific command
       def self.get_model(params)
-        begin
+        if params[:text].length > 0
           words = params[:text].split(' ')
           command = words.first.downcase
-        rescue Exception => e
-          command = COMMAND_REPORT_ERROR
+        else
+          # Use Card model by default
+          command = COMMAND_REFRESH_DB
         end
 
         case command
@@ -31,9 +32,6 @@ module DCG
             return DCG::Models::RefreshStoredData.new(params)
           when COMMAND_REPORT_ERROR
             return DCG::Models::Error.new(params)
-          else
-            # Use Card model by default
-            return DCG::Models::Card.new(params)
         end
 
       end

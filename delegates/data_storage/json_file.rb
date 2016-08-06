@@ -8,20 +8,25 @@ module DCG
 
         # Removes all info from JSON file represented by this delegate
         def self.clear_card_data
-          # TODO
+          f = File.open('./local_storage/cards.json','w')
+          f.write('')
+          f.close
         end
 
         # Retrieves card info from JSON file represented by this delegate
-        # @return [DCG::ValueObjects::Card]
-        def self.card
-          # TODO
+        # @param [Hash] query Hash with info based on which query can be constructed to retrieve data
+        # @return [Array] of [DCG::ValueObjects::Card]
+        def self.card(query)
+          #TODO
         end
 
-        # Writes card info to JSON file represented by this delegate
-        # @param [DCG::ValueObjects::Card] card
-        def self.card=(card)
-          # TODO
+        # Writes cards info to JSON file represented by this delegate
+        # @param [Array] cards_array An array of [DCG::ValueObjects::Card] that are about to be stored
+        def self.store_cards(cards_array)
+          #TODO
         end
+
+
 
       end
 

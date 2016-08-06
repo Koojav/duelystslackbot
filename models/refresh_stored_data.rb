@@ -22,14 +22,11 @@ module DCG
       # Unless source returned zero results then previous set will remain
       # @return [Array] returns cards that will be in the database after refresh
       def refresh_stored_data
-        cards = DCG::Delegates::DataAcquisition::DuelystDB::DuelystDB.collect_card_data
+        cards = DCG::Delegates::DataAcquisition::DuelystGamepedia::DuelystGamepedia.collect_card_data
 
         if cards.length > 0
           DCG::Delegates::DataStorage::JSONFile.clear_card_data
-
-          cards.each do |card|
-            DCG::Delegates::DataStorage::JSONFile.card = card
-          end
+          DCG::Delegates::DataStorage::JSONFile.store_cards(cards)
         end
 
         cards

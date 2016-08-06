@@ -10,14 +10,15 @@ module DCG
         end
 
         # Retrieves card info from data source represented by delegate
-        # @return [DCG::ValueObjects::Card]
-        def self.card
+        # @param [Hash] query Hash with info based on which query (or anything else) can be constructed to retrieve data
+        # @return [Array] of [DCG::ValueObjects::Card]
+        def self.card(query)
           raise 'This needs to be overwritten in derived classes.'
         end
 
-        # Writes card info to data source represented by delegate
-        # @param [DCG::ValueObjects::Card] card
-        def self.card=(card)
+        # Writes single card info to data source represented by delegate
+        # @param [Array] cards_array An array of [DCG::ValueObjects::Card] that are about to be stored
+        def self.store_cards(cards_array)
           raise 'This needs to be overwritten in derived classes.'
         end
 

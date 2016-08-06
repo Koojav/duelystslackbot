@@ -1,6 +1,6 @@
 require 'sinatra'
 require './controllers/input'
-require './delegates/data_acquisition/duelyst_db/duelyst_db'
+require './delegates/data_acquisition/duelyst_gamepedia/duelyst_gamepedia'
 require './delegates/data_storage/json_file'
 require './delegates/data_storage/sqlite'
 
