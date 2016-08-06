@@ -1,4 +1,5 @@
 require_relative 'base'
+require 'json'
 
 module DCG
   module Views
@@ -6,7 +7,11 @@ module DCG
 
       # Build the view based on params, cache it and return at the end
       def initialize(params)
-        @value = 'DCG::Views::Card operational.'
+        response = {}
+        response[:response_type] = 'in_channel'
+        response[:text] = 'DCG::Views::Card operational.'
+
+        @value = response.to_json
       end
 
     end

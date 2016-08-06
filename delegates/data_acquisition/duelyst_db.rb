@@ -6,7 +6,7 @@ module DCG
 
         # Retrieves from DuelystDB about all cards in game and returns them as an array
         # @return [Array] of [DCG::ValueObjects::Card]
-        def get_all_cards
+        def collect_card_data
           #TODO
         end
 

@@ -6,7 +6,7 @@ module DCG
 
         # Retrieves from external source data about all cards in game and returns them as an array
         # @return [Array] of [DCG::ValueObjects::Card]
-        def get_all_cards
+        def collect_card_data
           raise 'This needs to be overwritten in derived classes.'
         end
 

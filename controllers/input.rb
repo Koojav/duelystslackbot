@@ -1,5 +1,5 @@
 require './models/card'
-require './models/refresh_database'
+require './models/refresh_stored_data'
 require './models/error'
 
 module DCG
@@ -10,7 +10,7 @@ module DCG
       # Add more commands here to extend bot's functionality
       # Commands cannot contain spaces
       COMMAND_CARD = 'card'
-      COMMAND_REFRESH_DB = 'refresh_database'
+      COMMAND_REFRESH_DB = 'refresh_stored_data'
       COMMAND_REPORT_ERROR = 'report_error'
 
       # Analyzes command received from Slack and decides which data model will handle the process next
@@ -28,7 +28,7 @@ module DCG
           when COMMAND_CARD
             return DCG::Models::Card.new(params)
           when COMMAND_REFRESH_DB
-            return DCG::Models::RefreshDatabase.new(params)
+            return DCG::Models::RefreshStoredData.new(params)
           when COMMAND_REPORT_ERROR
             return DCG::Models::Error.new(params)
           else
