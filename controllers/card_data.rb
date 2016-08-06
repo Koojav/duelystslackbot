@@ -5,9 +5,10 @@ module DCG
     class CardData
 
       attr_reader :storage_delegate
-      attr_reader :acqusition_delegate
+      attr_reader :acquisition_delegate
 
       def initialize
+        @acquisition_delegate = DCG::Delegates::DataAcquisition::DuelystDB.new
         @storage_delegate = DCG::Delegates::DataStorage::JSONFile.new
       end
 
