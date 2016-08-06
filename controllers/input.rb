@@ -10,7 +10,7 @@ module DCG
       # Add more commands here to extend bot's functionality
       # Commands cannot contain spaces
       COMMAND_CARD = 'card'
-      COMMAND_REFRESH_DB = 'refresh_stored_data'
+      COMMAND_REFRESH_DB = 'refresh_data'
       COMMAND_REPORT_ERROR = 'report_error'
 
       # Analyzes command received from Slack and decides which data model will handle the process next
