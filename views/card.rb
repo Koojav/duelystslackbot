@@ -6,10 +6,16 @@ module DCG
     class Card < Base
 
       # Build the view based on params, cache it and return at the end
-      def initialize(params)
+      # @param [Array] cards of [DCG::ValueObjects::Card]
+      def initialize(cards)
         response = {}
         response[:response_type] = 'in_channel'
-        response[:text] = 'DCG::Views::Card operational.'
+
+        if cards.length == 1
+          response[:text] = cards[0][:image_url]
+        else
+          response[:text] = "Results: #{cards.length}"
+        end
 
         @value = response.to_json
       end

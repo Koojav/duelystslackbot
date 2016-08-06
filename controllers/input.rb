@@ -20,6 +20,8 @@ module DCG
         if params[:text].length > 0
           words = params[:text].split(' ')
           command = words.first.downcase
+        else
+          command = COMMAND_REPORT_ERROR
         end
 
         case command

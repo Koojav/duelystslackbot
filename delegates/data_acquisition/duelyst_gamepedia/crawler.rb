@@ -19,8 +19,6 @@ module DCG
             rows = source.scan(/<tr>\n<td>.*?<\/tr>/m)
             cards = []
 
-            rows = rows[0,5]
-
             rows.each do |row|
               # There are some cards listed but without wiki-page created for them - omitting those for now
               if row.match(/page does not exist/)
@@ -51,6 +49,7 @@ module DCG
 
                 # If everything went fine we should be on image's versions and just need to find the latest one
                 card.image_url = card_image_versions_source.scan(/fullImageLink.*?a href="(.*?)"/)[0][0]
+                puts "Added: #{card.image_url}"
               end
 
               cards << card
