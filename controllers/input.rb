@@ -19,12 +19,10 @@ module DCG
       def self.get_model(params)
         begin
           words = params[:text].split(' ')
+          command = words.first.downcase
         rescue Exception => e
           command = COMMAND_REPORT_ERROR
-        else
-          command = words.first.downcase
         end
-
 
         case command
           when COMMAND_CARD
