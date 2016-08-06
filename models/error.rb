@@ -14,7 +14,7 @@ module DCG
       # Returns view with error representation
       # @return [DCG::Views::Error]
       def view
-        DCG::Views::Error.new(params)
+        DCG::Views::Error.new(params).value
       end
 
     end

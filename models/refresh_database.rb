@@ -14,7 +14,7 @@ module DCG
       # Returns view with information about database refresh
       # @return [DCG::Views::RefreshDatabase]
       def view
-        DCG::Views::RefreshDatabase.new(params)
+        DCG::Views::RefreshDatabase.new(params).value
       end
 
     end

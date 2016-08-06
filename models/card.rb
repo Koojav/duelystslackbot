@@ -14,7 +14,7 @@ module DCG
       # Returns view of a single Duelyst card
       # @return [DCG::Views::Card]
       def view
-        DCG::Views::Card.new(params)
+        DCG::Views::Card.new(params).value
       end
 
     end
