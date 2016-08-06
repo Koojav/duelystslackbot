@@ -4,7 +4,7 @@ require './models/error'
 
 module DCG
   module Controllers
-    class InputController
+    class Input
 
       # List of commands bot will operate on
       # Add more commands here to extend bot's functionality
