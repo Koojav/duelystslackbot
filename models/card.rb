@@ -1,5 +1,6 @@
 require_relative 'base'
 require './views/card'
+require './delegates/data_storage/json_file'
 
 module DCG
   module Models
@@ -9,12 +10,14 @@ module DCG
       # @param [Hash] params Input data required to generate specific model
       def initialize(params)
         super
+
+        @cards = DCG::Delegates::DataStorage::JSONFile.card(params[:text])
       end
 
-      # Returns view of a single Duelyst card
+      # Returns view of a search results for a Duelyst card
       # @return [DCG::Views::Card]
       def view
-        DCG::Views::Card.new(params).value
+        DCG::Views::Card.new(@cards).value
       end
 
     end

@@ -12,10 +12,18 @@ module DCG
 
       def image_url
         self[:image_url]
-        end
+      end
 
       def image_url=(value)
         self[:image_url] = value
+      end
+
+      def initialize(hash = nil)
+        if hash
+          hash.each do |key, value|
+            self[key] = value
+          end
+        end
       end
 
     end

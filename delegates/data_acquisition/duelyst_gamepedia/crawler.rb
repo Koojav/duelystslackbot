@@ -19,6 +19,8 @@ module DCG
             rows = source.scan(/<tr>\n<td>.*?<\/tr>/m)
             cards = []
 
+            rows = rows[0,5]
+
             rows.each do |row|
               # There are some cards listed but without wiki-page created for them - omitting those for now
               if row.match(/page does not exist/)
@@ -27,6 +29,8 @@ module DCG
 
               # Create new card to store data scrapped from websites
               card = DCG::ValueObjects::Card.new
+
+              card.name = row.scan(/(title=")(.*?)(")/)[0][1]
 
               # Find URL to the details of the card in currently analyzed row
               card_details_url = row.scan(/a href="(.*?)"/)[0][0]

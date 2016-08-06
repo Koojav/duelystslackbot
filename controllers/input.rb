@@ -9,7 +9,7 @@ module DCG
       # List of commands bot will operate on
       # Add more commands here to extend bot's functionality
       # Commands cannot contain spaces
-      COMMAND_CARD = 'card'
+      COMMAND_CARD = 'get_card'
       COMMAND_REFRESH_DB = 'refresh_data'
       COMMAND_REPORT_ERROR = 'report_error'
 
@@ -20,9 +20,6 @@ module DCG
         if params[:text].length > 0
           words = params[:text].split(' ')
           command = words.first.downcase
-        else
-          # Use Card model by default
-          command = COMMAND_REFRESH_DB
         end
 
         case command
@@ -32,6 +29,9 @@ module DCG
             return DCG::Models::RefreshStoredData.new(params)
           when COMMAND_REPORT_ERROR
             return DCG::Models::Error.new(params)
+          else
+            # Use Card model by default
+            return DCG::Models::Card.new(params)
         end
 
       end
