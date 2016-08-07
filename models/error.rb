@@ -8,13 +8,13 @@ module DSB
       # Initializes model responsible for reporting an error with user's request
       # @param [Hash] params Input data required to generate specific model
       def initialize(params)
-        super
+        @params = params
       end
 
       # Returns view with error representation
       # @return [DSB::Views::Error]
       def view
-        DSB::Views::Error.new(params).value
+        DSB::Views::Error.new(@params).value
       end
 
     end

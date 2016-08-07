@@ -26,6 +26,14 @@ module DSB
         self[:image_url] = value
       end
 
+      def type
+        self[:type]
+      end
+
+      def type=(value)
+        self[:type] = value
+      end
+
       def initialize(hash = nil)
         if hash
           hash.each do |key, value|

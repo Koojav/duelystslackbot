@@ -11,9 +11,10 @@ module DSB
 
           DOMAIN = 'http://duelyst.gamepedia.com'
 
-          # Analyzes Gamepedia with all cards and retrieves them in form of an array
+          # SLOW:
+          # Analyzes http://duelyst.gamepedia.com/Cards and follows links (3 levels) to get best possible card image
           # @return [Array] of [DSB::ValueObjects::Card]
-          def self.crawl
+          def self.crawl_method_slow
 
             source = open('http://duelyst.gamepedia.com/Cards').read
             rows = source.scan(/<tr>\n<td>.*?<\/tr>/m)
@@ -49,10 +50,69 @@ module DSB
 
                 # If everything went fine we should be on image's versions and just need to find the latest one
                 card.image_url = card_image_versions_source.scan(/fullImageLink.*?a href="(.*?)"/)[0][0]
-                # puts "Added: #{card.image_url}"
+                puts "Added: #{card.image_url}"
               end
 
               cards << card
+            end
+
+            puts "Total: #{cards.length}"
+            cards
+          end
+
+          ARMY_URLS = [
+              'http://duelyst.gamepedia.com/Lyonar_Kingdom',
+              'http://duelyst.gamepedia.com/Songhai',
+              'http://duelyst.gamepedia.com/Vetruvian',
+              'http://duelyst.gamepedia.com/Abyssian',
+              'http://duelyst.gamepedia.com/Magmar',
+              'http://duelyst.gamepedia.com/Vanar',
+              'http://duelyst.gamepedia.com/Neutral',
+          ]
+
+          # FAST:
+          # Analyzes http://duelyst.gamepedia.com/{ARMY_NAME}, gets biggest thumbnail as image
+          # Doesn't open any additional links
+          # @return [Array] of [DSB::ValueObjects::Card]
+          def self.crawl_method_fast
+
+            cards = []
+
+            ARMY_URLS.each do |army_url|
+              source = open(army_url).read
+              rows = source.scan(/<tr>\n<td>[ ]*<a href.*?<\/tr>/m)
+
+              rows.each do |row|
+                # Create new card to store data scrapped from websites
+
+                cells = row.scan(/<td>.*?<\/td>/m)
+
+                # Sanitize cell code so it matches common pattern
+                cells.each do |cell|
+                  cell.gsub!(/\n/, '')
+                  cell.gsub!(/<p>/, '')
+                  cell.gsub!(/<\/p>/, '')
+                end
+
+                begin
+                  card = DSB::ValueObjects::Card.new
+                  card.image_url  = cells[0].scan(/ (https:\/\/.*?)(2x)/)[0][0]
+                  card.name       = cells[1].scan(/(>[ ]*)(.*?)([ ]*<)/)[0][1]
+
+                  if cells[2].downcase.include? 'general'
+                    card.type       = cells[2].scan(/(>[ ]*)(.*?)([ ]*<)/)[0][1]
+                  else
+                    card.rarity     = cells[2].scan(/(>[ ]*)([a-zA-Z]*?)([ ]*<\/td>)/)[0][1]
+                    card.type       = cells[3].scan(/(>[ ]*)(.*?)([ ]*<)/)[0][1]
+                  end
+
+                rescue Exception => e
+                  nil
+                else
+                  cards << card
+                end
+
+              end
             end
 
             cards

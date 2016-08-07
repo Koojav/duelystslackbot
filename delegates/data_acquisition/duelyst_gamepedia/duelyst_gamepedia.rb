@@ -11,7 +11,7 @@ module DSB
           # Retrieves from DuelystDB about all cards in game and returns them as an array
           # @return [Array] of [DSB::ValueObjects::Card]
           def collect_card_data
-            Crawler.crawl
+            Crawler.crawl_method_fast
           end
 
         end

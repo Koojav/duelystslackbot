@@ -7,8 +7,7 @@ module DSB
 
       # Initializes model responsible for creating data required to display information about a single Duelyst card
       # @param [Hash] params Input data required to generate specific model
-      def initialize(params, delegate_data_acquisition, delegate_data_storage)
-        @delegate_data_acquisition = delegate_data_acquisition
+      def initialize(params, delegate_data_storage)
         @delegate_data_storage = delegate_data_storage
         @cards = @delegate_data_storage.card(params[:text])
       end

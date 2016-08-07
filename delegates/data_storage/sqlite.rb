@@ -23,6 +23,8 @@ module DSB
             (
               ID          TEXT  PRIMARY KEY   NOT NULL,
               NAME        TEXT                NOT NULL,
+              RARITY      TEXT,
+              TYPE        TEXT,
               IMAGE_URL   TEXT
             );')
 
@@ -44,8 +46,10 @@ module DSB
 
           while (row = results.next) do
             card = DSB::ValueObjects::Card.new
-            card.name = row[1]
-            card.image_url = row[2]
+            card.name       = row[1]
+            card.rarity     = row[2]
+            card.type       = row[3]
+            card.image_url  = row[4]
             cards << card
           end
 
@@ -59,12 +63,12 @@ module DSB
 
           cards_array.each do |card|
 
-            stm = db.prepare 'REPLACE INTO CARDS(ID, NAME, IMAGE_URL) VALUES(?,?,?)'
-
-            # # TODO: Construct static ID in better way, this is not bad, this is Justin Bieber wrong.
-            stm.bind_param 1, "#{card.name}::#{card.image_url}"
+            stm = db.prepare 'REPLACE INTO CARDS(ID, NAME, RARITY, TYPE, IMAGE_URL) VALUES(?,?,?,?,?)'
+            stm.bind_param 1, "#{card.name}::#{card.type}"
             stm.bind_param 2, card.name
-            stm.bind_param 3, card.image_url
+            stm.bind_param 3, card.rarity
+            stm.bind_param 4, card.type
+            stm.bind_param 5, card.image_url
             stm.execute
 
           end
