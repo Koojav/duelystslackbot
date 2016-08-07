@@ -19,6 +19,8 @@ module DSB
             rows = source.scan(/<tr>\n<td>.*?<\/tr>/m)
             cards = []
 
+            rows = rows[0,2]
+
             rows.each do |row|
               # There are some cards listed but without wiki-page created for them - omitting those for now
               if row.match(/page does not exist/)
@@ -29,6 +31,10 @@ module DSB
               card = DSB::ValueObjects::Card.new
 
               card.name = row.scan(/(title=")(.*?)(")/)[0][1]
+
+              # Duelyst's gamepedia doesn't seem to have any identifiers per card so I needed to makeup my own
+              # It won't be constant until I find a way to retrieve some server-side ID for objects
+              card.id = card.name + rand(1000)
 
               # Find URL to the details of the card in currently analyzed row
               card_details_url = row.scan(/a href="(.*?)"/)[0][0]

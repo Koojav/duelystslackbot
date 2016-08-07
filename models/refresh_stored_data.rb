@@ -6,9 +6,11 @@ module DSB
     class RefreshStoredData < Base
 
       # Initializes model responsible for refreshing stored data on user's request
-      # @param [Hash] params Input data required to generate specific model
-      def initialize(params)
-        super
+      # @param [DSB::Delegates::Base] delegate_data_acquisition Delegate used to communicate with data acquisition service
+      # @param [DSB::Delegates::Base] delegate_data_storage Delegate used to communicate with data storage service
+      def initialize(delegate_data_acquisition, delegate_data_storage)
+        @delegate_data_acquisition = delegate_data_acquisition
+        @delegate_data_storage = delegate_data_storage
         @cards = refresh_stored_data
       end
 
@@ -18,16 +20,12 @@ module DSB
         DSB::Views::RefreshStoredData.new(@cards).value
       end
 
-      # Clears stored card data and retrieves new set from external source
-      # Unless source returned zero results then previous set will remain
+      # Retrieves new dataset from @delegate_data_acquisition and then passes that to be stored via @delegate_data_storage.
+      # Delegates on their own have to make sure that resulting dataset won't contain duplicate entries.
       # @return [Array] returns cards that will be in the database after refresh
       def refresh_stored_data
-        cards = DSB::Delegates::DataAcquisition::DuelystGamepedia::DuelystGamepedia.collect_card_data
-
-        if cards.length > 0
-          DSB::Delegates::DataStorage::JSONFile.clear_card_data
-          DSB::Delegates::DataStorage::JSONFile.store_cards(cards)
-        end
+        cards = @delegate_data_acquisition.collect_card_data
+        @delegate_data_storage.store_cards(cards)
 
         cards
       end

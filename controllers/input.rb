@@ -1,6 +1,8 @@
 require './models/card'
 require './models/refresh_stored_data'
 require './models/error'
+require './delegates/data_storage/sqlite'
+require './delegates/data_acquisition/duelyst_gamepedia/duelyst_gamepedia'
 
 module DSB
   module Controllers
@@ -24,18 +26,16 @@ module DSB
           command = COMMAND_REPORT_ERROR
         end
 
-        case command
-          when COMMAND_CARD
-            return DSB::Models::Card.new(params)
+        model = case command
           when COMMAND_REFRESH_DB
-            return DSB::Models::RefreshStoredData.new(params)
+            DSB::Models::RefreshStoredData.new(DSB::Delegates::DataAcquisition::DuelystGamepedia::DuelystGamepedia.new, DSB::Delegates::DataStorage::SQLite.new)
           when COMMAND_REPORT_ERROR
-            return DSB::Models::Error.new(params)
+            DSB::Models::Error.new(params)
           else
-            # Use Card model by default
-            return DSB::Models::Card.new(params)
+            DSB::Models::Card.new(params, DSB::Delegates::DataAcquisition::DuelystGamepedia::DuelystGamepedia.new, DSB::Delegates::DataStorage::SQLite.new)
         end
 
+        model
       end
 
     end

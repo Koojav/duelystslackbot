@@ -7,18 +7,11 @@ module DSB
 
       class JSONFile < Base
 
-        # Removes all info from JSON file represented by this delegate
-        def self.clear_card_data
-          file = File.open('./local_storage/cards.json', File::WRONLY)
-          file.write('')
-          file.close
-        end
-
         # Retrieves card info from JSON file represented by this delegate
         # @param [Hash] query Hash with info based on which query can be constructed to retrieve data
         #   :name
         # @return [Array] of [DSB::ValueObjects::Card]
-        def self.card(query)
+        def card(query)
           # TODO: Cache file after reading its contents
 
           file = File.open('./local_storage/cards.json', File::RDONLY)
@@ -41,8 +34,9 @@ module DSB
         end
 
         # Writes cards info to JSON file represented by this delegate
+        # Overwrites content of the file with just the cards that are passed in params.
         # @param [Array] cards_array An array of [DSB::ValueObjects::Card] that are about to be stored
-        def self.store_cards(cards_array)
+        def store_cards(cards_array)
           file = File.open('./local_storage/cards.json', File::WRONLY)
           file.write(cards_array.to_json)
           file.close
