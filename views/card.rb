@@ -12,7 +12,12 @@ module DSB
         response[:response_type] = 'in_channel'
 
         if cards.length == 1
-          response[:text] = cards[0][:image_url]
+          if cards[0][:image_url]
+            response[:text] = cards[0][:image_url]
+          else
+            response[:text] = ':desert: Unfortunately this card has no image available.'
+          end
+
         else
           response[:text] = "Results: #{cards.length}"
         end

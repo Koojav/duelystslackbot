@@ -2,14 +2,6 @@ module DSB
   module ValueObjects
     class Card < Hash
 
-      def id
-        self[:id]
-      end
-
-      def id(value)
-        self[:id] = value
-      end
-
       def name
         self[:name]
       end
@@ -22,7 +14,7 @@ module DSB
         self[:rarity]
       end
 
-      def rarity(value)
+      def rarity=(value)
         self[:rarity] = value
       end
 
