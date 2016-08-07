@@ -6,7 +6,7 @@ require './delegates/data_storage/sqlite'
 
 set :bind, '0.0.0.0'
 
-post '/duelystcardgnome' do
+post '/duelystslackbot' do
   content_type :json
 
   model = DSB::Controllers::Input.get_model(params)
