@@ -1,12 +1,12 @@
 require_relative 'base'
 
-module DCG
+module DSB
   module Views
     class Error < Base
 
       # Build the view based on params, cache it and return at the end
       def initialize(params)
-        @value = 'DCG::Views::Error operational.'
+        @value = 'DSB::Views::Error operational.'
       end
 
     end

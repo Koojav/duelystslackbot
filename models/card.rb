@@ -2,7 +2,7 @@ require_relative 'base'
 require './views/card'
 require './delegates/data_storage/json_file'
 
-module DCG
+module DSB
   module Models
     class Card < Base
 
@@ -11,13 +11,13 @@ module DCG
       def initialize(params)
         super
 
-        @cards = DCG::Delegates::DataStorage::JSONFile.card(params[:text])
+        @cards = DSB::Delegates::DataStorage::JSONFile.card(params[:text])
       end
 
       # Returns view of a search results for a Duelyst card
-      # @return [DCG::Views::Card]
+      # @return [DSB::Views::Card]
       def view
-        DCG::Views::Card.new(@cards).value
+        DSB::Views::Card.new(@cards).value
       end
 
     end

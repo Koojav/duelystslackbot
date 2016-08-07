@@ -1,12 +1,12 @@
 require_relative 'base'
 require 'json'
 
-module DCG
+module DSB
   module Views
     class Card < Base
 
       # Build the view based on params, cache it and return at the end
-      # @param [Array] cards of [DCG::ValueObjects::Card]
+      # @param [Array] cards of [DSB::ValueObjects::Card]
       def initialize(cards)
         response = {}
         response[:response_type] = 'in_channel'

@@ -1,7 +1,7 @@
 require_relative 'base'
 require 'json'
 
-module DCG
+module DSB
   module Delegates
     module DataStorage
 
@@ -17,7 +17,7 @@ module DCG
         # Retrieves card info from JSON file represented by this delegate
         # @param [Hash] query Hash with info based on which query can be constructed to retrieve data
         #   :name
-        # @return [Array] of [DCG::ValueObjects::Card]
+        # @return [Array] of [DSB::ValueObjects::Card]
         def self.card(query)
           # TODO: Cache file after reading its contents
 
@@ -34,14 +34,14 @@ module DCG
 
           # Convert simple hashes to class that represents card data
           cards.each_with_index do |card, index|
-            cards[index] = DCG::ValueObjects::Card.new(card)
+            cards[index] = DSB::ValueObjects::Card.new(card)
           end
 
           cards
         end
 
         # Writes cards info to JSON file represented by this delegate
-        # @param [Array] cards_array An array of [DCG::ValueObjects::Card] that are about to be stored
+        # @param [Array] cards_array An array of [DSB::ValueObjects::Card] that are about to be stored
         def self.store_cards(cards_array)
           file = File.open('./local_storage/cards.json', File::WRONLY)
           file.write(cards_array.to_json)

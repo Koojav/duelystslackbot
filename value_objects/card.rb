@@ -1,4 +1,4 @@
-module DCG
+module DSB
   module ValueObjects
     class Card < Hash
 

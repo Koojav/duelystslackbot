@@ -2,7 +2,7 @@ require './models/card'
 require './models/refresh_stored_data'
 require './models/error'
 
-module DCG
+module DSB
   module Controllers
     class Input
 
@@ -15,7 +15,7 @@ module DCG
 
       # Analyzes command received from Slack and decides which data model will handle the process next
       # @param [Hash] params Parameters received from Slack's custom command
-      # @return [DCG::Models::Base] Returns a model that is responsible for consuming specific command
+      # @return [DSB::Models::Base] Returns a model that is responsible for consuming specific command
       def self.get_model(params)
         if params[:text].length > 0
           words = params[:text].split(' ')
@@ -26,14 +26,14 @@ module DCG
 
         case command
           when COMMAND_CARD
-            return DCG::Models::Card.new(params)
+            return DSB::Models::Card.new(params)
           when COMMAND_REFRESH_DB
-            return DCG::Models::RefreshStoredData.new(params)
+            return DSB::Models::RefreshStoredData.new(params)
           when COMMAND_REPORT_ERROR
-            return DCG::Models::Error.new(params)
+            return DSB::Models::Error.new(params)
           else
             # Use Card model by default
-            return DCG::Models::Card.new(params)
+            return DSB::Models::Card.new(params)
         end
 
       end

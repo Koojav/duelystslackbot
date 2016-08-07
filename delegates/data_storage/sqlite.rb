@@ -1,6 +1,6 @@
 require_relative 'base'
 
-module DCG
+module DSB
   module Delegates
     module DataStorage
 
@@ -13,13 +13,13 @@ module DCG
 
         # Retrieves card info from SQLite database represented by this delegate
         # @param [Hash] query Hash with info based on which query (or anything else) can be constructed to retrieve data
-        # @return [Array] of [DCG::ValueObjects::Card]
+        # @return [Array] of [DSB::ValueObjects::Card]
         def self.card(query)
           #TODO
         end
 
         # Writes card info to SQLite database represented by this delegate
-        # @param [Array] cards_array An array of [DCG::ValueObjects::Card] that are about to be stored
+        # @param [Array] cards_array An array of [DSB::ValueObjects::Card] that are about to be stored
         def self.store_cards(cards_array)
           #TODO
         end

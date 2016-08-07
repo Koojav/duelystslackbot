@@ -1,7 +1,7 @@
 require_relative 'base'
 require './views/error'
 
-module DCG
+module DSB
   module Models
     class Error < Base
 
@@ -12,9 +12,9 @@ module DCG
       end
 
       # Returns view with error representation
-      # @return [DCG::Views::Error]
+      # @return [DSB::Views::Error]
       def view
-        DCG::Views::Error.new(params).value
+        DSB::Views::Error.new(params).value
       end
 
     end

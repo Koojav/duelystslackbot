@@ -2,7 +2,7 @@ require './value_objects/card'
 require 'open-uri'
 
 
-module DCG
+module DSB
   module Delegates
     module DataAcquisition
       module DuelystGamepedia
@@ -12,7 +12,7 @@ module DCG
           DOMAIN = 'http://duelyst.gamepedia.com'
 
           # Analyzes Gamepedia with all cards and retrieves them in form of an array
-          # @return [Array] of [DCG::ValueObjects::Card]
+          # @return [Array] of [DSB::ValueObjects::Card]
           def self.crawl
 
             source = open('http://duelyst.gamepedia.com/Cards').read
@@ -26,7 +26,7 @@ module DCG
               end
 
               # Create new card to store data scrapped from websites
-              card = DCG::ValueObjects::Card.new
+              card = DSB::ValueObjects::Card.new
 
               card.name = row.scan(/(title=")(.*?)(")/)[0][1]
 

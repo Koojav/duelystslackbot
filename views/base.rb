@@ -1,4 +1,4 @@
-module DCG
+module DSB
   module Views
     class Base
 

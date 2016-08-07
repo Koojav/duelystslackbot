@@ -1,4 +1,4 @@
-module DCG
+module DSB
   module Models
     class Base
 
@@ -13,7 +13,7 @@ module DCG
 
       # Returns final version of data that will be passed to browser (or any other client)
       # which's request has resulted in creating this model.
-      # @return [DCG::Views::Base]
+      # @return [DSB::Views::Base]
       def view
         raise 'This needs to be overwritten in derived classes.'
       end
