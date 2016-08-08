@@ -3,6 +3,7 @@ require './models/refresh_stored_data'
 require './models/error'
 require './delegates/data_storage/sqlite'
 require './delegates/data_acquisition/duelyst_gamepedia/duelyst_gamepedia'
+require './delegates/data_storage/json_file'
 
 module DSB
   module Controllers
@@ -11,9 +12,9 @@ module DSB
       # List of commands bot will operate on
       # Add more commands here to extend bot's functionality
       # Commands cannot contain spaces
-      COMMAND_CARD = 'get_card'
-      COMMAND_REFRESH_DB = 'refresh_data'
-      COMMAND_REPORT_ERROR = 'report_error'
+      COMMAND_CARD          = 'get_card'
+      COMMAND_REFRESH_DB    = 'refresh_data'
+      COMMAND_REPORT_ERROR  = 'report_error'
 
       # Analyzes command received from Slack and decides which data model will handle the process next
       # @param [Hash] params Parameters received from Slack's custom command

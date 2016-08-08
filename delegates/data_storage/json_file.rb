@@ -7,19 +7,21 @@ module DSB
 
       class JSONFile < Base
 
+        @@file_contents = nil
+
+        FILE_PATH = './local_storage/cards.json'
+
         # Retrieves card info from JSON file represented by this delegate
         # @param [Hash] query Hash with info based on which query can be constructed to retrieve data
         #   :name
         # @return [Array] of [DSB::ValueObjects::Card]
         def card(query)
-          # TODO: Cache file after reading its contents
-
-          file = File.open('./local_storage/cards.json', File::RDONLY)
-          hash_array = JSON.parse(file.read, symbolize_names: true)
+          file = File.open(FILE_PATH, File::RDONLY)
+          @@file_contents = JSON.parse(file.read, symbolize_names: true)
           file.close
 
           # Filter cards based on query provided by user
-          cards = hash_array.select do |card_hash|
+          cards = @@file_contents.select do |card_hash|
             str = card_hash[:name].match(/#{Regexp.escape(query)}/i)
 
             str != nil
@@ -40,6 +42,8 @@ module DSB
           file = File.open('./local_storage/cards.json', File::WRONLY)
           file.write(cards_array.to_json)
           file.close
+
+          @@file_contents = cards_array.to_json
         end
 
       end

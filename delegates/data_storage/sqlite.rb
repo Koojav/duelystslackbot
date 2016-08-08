@@ -12,9 +12,8 @@ module DSB
         # When creating delegate make sure that database exists with all required tables.
         # If anything is missing from database structure - create it here.
         def initialize
-          # TODO: All of this should be executed once per server instancing or just when database is refreshed
-          # TODO: Not with every instance of this delegate.
 
+          # TODO: All of this should be executed once per server instancing or just when database is refreshed. Not with every instance of this delegate.
           db = SQLite3::Database.new(DATABASE_PATH)
 
           # Create table 'CARDS' if it doesn't exist
@@ -29,7 +28,6 @@ module DSB
             );')
 
           db.close
-          true
         end
 
         # Retrieves card info from SQLite database represented by this delegate
@@ -63,6 +61,7 @@ module DSB
 
           cards_array.each do |card|
 
+            #TODO: Create one statement instead of one statement per card
             stm = db.prepare 'REPLACE INTO CARDS(ID, NAME, RARITY, TYPE, IMAGE_URL) VALUES(?,?,?,?,?)'
             stm.bind_param 1, "#{card.name}::#{card.type}"
             stm.bind_param 2, card.name
