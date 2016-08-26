@@ -2,6 +2,14 @@ module DSB
   module ValueObjects
     class Card < Hash
 
+      def id
+        self[:id]
+      end
+
+      def id=(value)
+        self[:id] = value
+      end
+
       def name
         self[:name]
       end
@@ -32,6 +40,46 @@ module DSB
 
       def type=(value)
         self[:type] = value
+      end
+
+      def description
+        self[:description]
+      end
+
+      def description=(value)
+        self[:description] = value
+      end
+
+      def attack
+        self[:attack]
+      end
+
+      def attack=(value)
+        self[:attack] = value
+      end
+
+      def health
+        self[:health]
+      end
+
+      def health=(value)
+        self[:health] = value
+      end
+
+      def mana_cost
+        self[:mana_cost]
+      end
+
+      def mana_cost=(value)
+        self[:mana_cost] = value
+      end
+
+      def faction
+        self[:faction]
+      end
+
+      def faction=(value)
+        self[:faction] = value
       end
 
       def initialize(hash = nil)

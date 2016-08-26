@@ -3,6 +3,7 @@ require './models/refresh_stored_data'
 require './models/error'
 require './delegates/data_storage/sqlite'
 require './delegates/data_acquisition/duelyst_gamepedia/duelyst_gamepedia'
+require './delegates/data_acquisition/duelyst_db/duelyst_db'
 require './delegates/data_storage/json_file'
 
 module DSB
@@ -31,7 +32,7 @@ module DSB
 
         model = case command
           when COMMAND_REFRESH_DB
-            DSB::Models::RefreshStoredData.new(DSB::Delegates::DataAcquisition::DuelystGamepedia::DuelystGamepedia.new, DSB::Delegates::DataStorage::SQLite.new)
+            DSB::Models::RefreshStoredData.new(DSB::Delegates::DataAcquisition::DuelystDb::DuelystDb.new, DSB::Delegates::DataStorage::SQLite.new)
           when COMMAND_REPORT_ERROR
             DSB::Models::Error.new(params)
           else

@@ -1,5 +1,6 @@
 require_relative 'base'
-require './views/card'
+require './views/card/image'
+require './views/card/descriptive'
 
 module DSB
   module Models
@@ -13,9 +14,8 @@ module DSB
       end
 
       # Returns view of a search results for a Duelyst card
-      # @return [DSB::Views::Card]
       def view
-        DSB::Views::Card.new(@cards).value
+        DSB::Views::Card::Descriptive.new(@cards).value
       end
 
     end

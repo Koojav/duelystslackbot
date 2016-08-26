@@ -24,7 +24,12 @@ module DSB
               NAME        TEXT                NOT NULL,
               RARITY      TEXT,
               TYPE        TEXT,
-              IMAGE_URL   TEXT
+              IMAGE_URL   TEXT,
+              DESCRIPTION TEXT,
+              FACTION     TEXT,
+              ATTACK      INT,
+              HEALTH      INT,
+              MANA_COST   INT
             );')
 
           db.close
@@ -44,10 +49,15 @@ module DSB
 
           while (row = results.next) do
             card = DSB::ValueObjects::Card.new
-            card.name       = row[1]
-            card.rarity     = row[2]
-            card.type       = row[3]
-            card.image_url  = row[4]
+            card.name         = row[1]
+            card.rarity       = row[2]
+            card.type         = row[3]
+            card.image_url    = row[4]
+            card.description  = row[5]
+            card.faction      = row[6]
+            card.attack       = row[7]
+            card.health       = row[8]
+            card.mana_cost    = row[9]
             cards << card
           end
 
@@ -62,12 +72,17 @@ module DSB
           cards_array.each do |card|
 
             #TODO: Create one statement instead of one statement per card
-            stm = db.prepare 'REPLACE INTO CARDS(ID, NAME, RARITY, TYPE, IMAGE_URL) VALUES(?,?,?,?,?)'
-            stm.bind_param 1, "#{card.name}::#{card.type}"
-            stm.bind_param 2, card.name
-            stm.bind_param 3, card.rarity
-            stm.bind_param 4, card.type
-            stm.bind_param 5, card.image_url
+            stm = db.prepare 'REPLACE INTO CARDS(ID, NAME, RARITY, TYPE, IMAGE_URL, DESCRIPTION, FACTION, ATTACK, HEALTH, MANA_COST) VALUES(?,?,?,?,?,?,?,?,?,?)'
+            stm.bind_param 1,   card.id ? card.id : "#{card.name}::#{card.type}"
+            stm.bind_param 2,   card.name
+            stm.bind_param 3,   card.rarity
+            stm.bind_param 4,   card.type
+            stm.bind_param 5,   card.image_url
+            stm.bind_param 6,   card.description
+            stm.bind_param 7,   card.faction
+            stm.bind_param 8,   card.attack
+            stm.bind_param 9,   card.health
+            stm.bind_param 10,  card.mana_cost
             stm.execute
 
           end
