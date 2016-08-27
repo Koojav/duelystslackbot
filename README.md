@@ -41,17 +41,17 @@ Command names used below are just an example and can be set to whatever suites y
  - `/refreshcards`
  Used to refresh/populate local database with info about the cards.
  
- **URL**: SERVER/REFRESH_CARDS_COMMAND_ENDPOINT
+ **URL**: SERVER/REFRESH_CARDS_COMMAND_ENDPOINT 
  **Method:** POST
 
 ##### Start application
 
 When in application's main directory:
 
- - `bundle install`
+ - `bundle install` 
  Will install required Ruby gems.
  
- - `ruby bin/dsb.rb`
+ - `ruby bin/dsb.rb` 
  Fires up the application that will start webserver that listens on specified port.
 
 
@@ -59,10 +59,10 @@ When in application's main directory:
 
 After all the configuration is done (Ruby process running on the server, Slack's commands set up) whole use comes down to two commands:
 
- - `/refreshcards`
+ - `/refreshcards` 
  Refreshes info about the cards. Has to be run at least once before `/card` can be called.
 
- - `/card PARTIAL_CARDNAME`
+ - `/card PARTIAL_CARDNAME` 
  Displays info about cards that match specified pattern.
  In-depth info is displayed only for searches matching one card, for searches that return up to 9 results simple list is displayed, above that more precise query is required.
  
