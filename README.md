@@ -15,7 +15,7 @@ IP/Address of this server will from now on be called *SERVER*
  
  - `application_settings`  
     - `port`  
-    Port on which webserver will listen
+    Port on which webserver will listen to traffic coming from Slack.
     
     - `card_command_endpoint`  
     Address to which Slack will POST data on command that retrieves cards (eg. /card)  
