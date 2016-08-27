@@ -5,6 +5,7 @@ require './delegates/data_storage/sqlite'
 require './delegates/data_acquisition/duelyst_gamepedia/duelyst_gamepedia'
 require './delegates/data_acquisition/duelyst_db/duelyst_db'
 require './delegates/data_storage/json_file'
+require './utils/config'
 
 module DSB
   module Controllers
@@ -45,12 +46,7 @@ module DSB
 
       # Checks if particular user has permissions to refresh card data
       def self.canRefreshData(user_name, team_domain)
-        file = File.open('./config.json', File::RDONLY)
-        config = JSON.parse(file.read, symbolize_names: true)
-        file.close
-
-        permissions = config[:refresh_cards_permissions]
-
+        permissions = DSB::Config.get[:refresh_cards_permissions]
         user_name == permissions[:user_name] && team_domain == permissions[:team_domain]
       end
 

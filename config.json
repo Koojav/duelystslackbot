@@ -1,7 +1,13 @@
 {
   "refresh_cards_permissions":
   {
-    "user_name"  : "ADMIN_USER_NAME",
-    "team_domain": "ADMIN_TEAM_NAME"
+    "user_name"  : "ADMIN_SLACK_USER_NAME",
+    "team_domain": "ADMIN_SLACK_TEAM_NAME"
+  },
+  "application_settings":
+  {
+    "port" : 4567
+    "card_command_endpoint": "dsb_card",
+    "refresh_cards_command_endpoint": "dsb_refresh_cards"
   }
 }
