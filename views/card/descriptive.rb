@@ -17,14 +17,17 @@ module DSB
             response[:text] = ':desert: No cards found in database.'
           elsif cards.length == 1
 
-            if cards[0][:image_url]
+            card = cards[0]
               response[:text] = ''
-              response[:text] << "> *Card:*    *#{cards[0].name}*                #{cards[0].faction}  |  #{cards[0].rarity}  |  #{cards[0].type}\n"
-              response[:text] << "> *Stats:*   #{cards[0].attack}  /  #{cards[0].health}\n"
-              response[:text] << "> *Cost:*    #{cards[0].mana_cost}\n"
-              response[:text] << "> *Desc:*    #{cards[0].description.gsub('<b>','*').gsub('</b>','*').gsub('<br>',' ')}\n"
-              response[:text] << "> *Image:*   #{cards[0].image_url}\n"
-            end
+              response[:text] << "> *Card:*    *#{card.name}*                #{card.faction}  |  #{card.type}  |  #{card.rarity}\n"
+
+              if card.type != 'Spell' && card.type != 'Artifact'
+                response[:text] << "> *Stats:*   #{card.attack}  /  #{card.health}\n"
+              end
+
+              response[:text] << "> *Cost:*    #{card.mana_cost}\n"
+              response[:text] << "> *Desc:*    #{card.description.gsub('<b>','*').gsub('</b>','*').gsub('<br>',' ')}\n"
+              response[:text] << "> *Image:*   #{card.image_url}\n"
 
           elsif cards.length < 10
             response[:text] = "Results:\n"
