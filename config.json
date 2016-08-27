@@ -6,7 +6,7 @@
   },
   "application_settings":
   {
-    "port" : 4567
+    "port" : 4567,
     "card_command_endpoint": "dsb_card",
     "refresh_cards_command_endpoint": "dsb_refresh_cards"
   }
