@@ -106,6 +106,8 @@ module DSB
                     card.type       = cells[3].scan(/(>[ ]*)(.*?)([ ]*<)/)[0][1]
                   end
 
+                  card.id =  "#{card.name}::#{card.type}"
+
                 rescue Exception => e
                   nil
                 else

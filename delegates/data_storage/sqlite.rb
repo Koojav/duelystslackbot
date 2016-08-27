@@ -32,7 +32,6 @@ module DSB
               MANA_COST   INT
             );')
 
-          db.close
         end
 
         # Retrieves card info from SQLite database represented by this delegate
@@ -69,23 +68,14 @@ module DSB
         def store_cards(cards_array)
           db = SQLite3::Database.new(DATABASE_PATH)
 
+          db.transaction
           cards_array.each do |card|
 
-            #TODO: Create one statement instead of one statement per card
-            stm = db.prepare 'REPLACE INTO CARDS(ID, NAME, RARITY, TYPE, IMAGE_URL, DESCRIPTION, FACTION, ATTACK, HEALTH, MANA_COST) VALUES(?,?,?,?,?,?,?,?,?,?)'
-            stm.bind_param 1,   card.id ? card.id : "#{card.name}::#{card.type}"
-            stm.bind_param 2,   card.name
-            stm.bind_param 3,   card.rarity
-            stm.bind_param 4,   card.type
-            stm.bind_param 5,   card.image_url
-            stm.bind_param 6,   card.description
-            stm.bind_param 7,   card.faction
-            stm.bind_param 8,   card.attack
-            stm.bind_param 9,   card.health
-            stm.bind_param 10,  card.mana_cost
-            stm.execute
+            db.execute('REPLACE INTO CARDS(ID, NAME, RARITY, TYPE, IMAGE_URL, DESCRIPTION, FACTION, ATTACK, HEALTH, MANA_COST) VALUES(?,?,?,?,?,?,?,?,?,?)',
+                       [card.id, card.name, card.rarity, card.type, card.image_url, card.description, card.faction, card.attack, card.health, card.mana_cost])
 
           end
+          db.commit
 
         end
 

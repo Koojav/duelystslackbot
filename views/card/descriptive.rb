@@ -19,10 +19,10 @@ module DSB
 
             if cards[0][:image_url]
               response[:text] = ''
-              response[:text] << "> *Card:*    *#{cards[0].name}*              #{cards[0].faction}  |  #{cards[0].rarity}  |  #{cards[0].type}\n"
+              response[:text] << "> *Card:*    *#{cards[0].name}*                #{cards[0].faction}  |  #{cards[0].rarity}  |  #{cards[0].type}\n"
               response[:text] << "> *Stats:*   #{cards[0].attack}  /  #{cards[0].health}\n"
               response[:text] << "> *Cost:*    #{cards[0].mana_cost}\n"
-              response[:text] << "> *Desc:*    #{cards[0].description}\n"
+              response[:text] << "> *Desc:*    #{cards[0].description.gsub('<b>','*').gsub('</b>','*').gsub('<br>',' ')}\n"
               response[:text] << "> *Image:*   #{cards[0].image_url}\n"
             end
 

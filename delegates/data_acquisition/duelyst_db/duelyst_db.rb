@@ -23,6 +23,12 @@ module DSB
 
             cards_hash = JSON.parse(open(URL_ALL_CARDS_JSON).read, symbolize_names: true)
             cards_hash.each do |card_hash|
+
+              # Omit cards from tutorial
+              if card_hash[:faction_id] == '200'
+                next
+              end
+
               card = DSB::ValueObjects::Card.new
               card.id           = card_hash[:duelyst_id]
               card.type         = card_hash[:type]
@@ -30,7 +36,7 @@ module DSB
               card.image_url    = card_hash[:image]
               card.rarity       = rarities[card_hash[:rarity].to_i]
               card.faction      = factions[card_hash[:faction_id].to_i]
-              card.description  = card_hash[:description].gsub('<b>','*').gsub('</b>','*').gsub('<br>','')
+              card.description  = card_hash[:description]
               card.attack       = card_hash[:attack]
               card.health       = card_hash[:health]
               card.mana_cost    = card_hash[:mana_cost]
