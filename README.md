@@ -44,9 +44,15 @@ Command names used below are just an example and can be set to whatever suites y
  **URL**: SERVER/REFRESH_CARDS_COMMAND_ENDPOINT
  **Method:** POST
 
-##### Start application : `ruby bin/dsb.rb`
+##### Start application
 
-From now on the process will be running and webserver will start to work on configured port
+When in application's main directory:
+
+ - `bundle install`
+ Will install required Ruby gems.
+ 
+ - `ruby bin/dsb.rb`
+ Fires up the application that will start webserver that listens on specified port.
 
 
 # Usage
