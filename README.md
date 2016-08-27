@@ -3,9 +3,11 @@ Ruby based custom integration for Slack that retrieves information about Duelyst
 
 # Installation & Configuration
 
+
 #### Clone this repository into a folder on a machine that can be accessed from outside world.
 
-IP/Address of this server will from now on be called *SERVER*
+IP/Address of this server will from now on be called **SERVER**
+
 
 #### Review configuration file: `config.json`
 
@@ -27,6 +29,7 @@ IP/Address of this server will from now on be called *SERVER*
     **Full path:** SERVER/REFRESH_CARDS_COMMAND_ENDPOINT  
     **Default value:** `dsb_refresh_cards`
  
+ 
 #### Configure Slack's custom commands for your team.
 
 Usings Slack's web interface add two custom commands that will communicate with Ruby application.  
@@ -43,6 +46,7 @@ Command names used below are just an example and can be set to whatever suites y
  
  **URL**: SERVER/REFRESH_CARDS_COMMAND_ENDPOINT  
  **Method:** POST
+
 
 #### Start application
 
