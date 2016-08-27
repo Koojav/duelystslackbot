@@ -1,0 +1,7 @@
+{
+  "refresh_cards_permissions":
+  {
+    "user_name"  : "ADMIN_USER_NAME",
+    "team_domain": "ADMIN_TEAM_NAME"
+  }
+}

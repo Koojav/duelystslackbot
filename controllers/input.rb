@@ -10,36 +10,48 @@ module DSB
   module Controllers
     class Input
 
-      # List of commands bot will operate on
-      # Add more commands here to extend bot's functionality
-      # Commands cannot contain spaces
-      COMMAND_CARD          = 'get_card'
-      COMMAND_REFRESH_DB    = 'refresh_data'
-      COMMAND_REPORT_ERROR  = 'report_error'
-
-      # Analyzes command received from Slack and decides which data model will handle the process next
-      # @param [Hash] params Parameters received from Slack's custom command
+      # Decides which data model will handle the process next according to received command
+      # @param [String] command One of the constants from : DSB::Utils::CommandParser, represents action to be taken
+      # @param [Hash] data Data that accompanies the command from Slack
       # @return [DSB::Models::Base] Returns a model that is responsible for consuming specific command
-      def self.get_model(params)
+      def self.get_model(command, params)
 
-        # TODO: Process commands in proper manner not like a savage
-        if params[:text].length > 0
-          words = params[:text].split(' ')
-          command = words.first.downcase
-        else
-          command = COMMAND_REPORT_ERROR
-        end
+        # Command is already recognized when accessing appropriate endpoint
+        # Since user can define any command on slack we can't base anything of strings that come in params[:command]
+        # but we can safely replace that with our own command constants
+        params[:command] = command
 
         model = case command
-          when COMMAND_REFRESH_DB
-            DSB::Models::RefreshStoredData.new(DSB::Delegates::DataAcquisition::DuelystDb::DuelystDb.new, DSB::Delegates::DataStorage::SQLite.new)
-          when COMMAND_REPORT_ERROR
-            DSB::Models::Error.new(params)
-          else
-            DSB::Models::Card.new(params, DSB::Delegates::DataStorage::SQLite.new)
+          when DSB::Utils::Commands::CARD
+
+            if params[:text].length != 0
+              DSB::Models::Card.new(params, DSB::Delegates::DataStorage::SQLite.new)
+            else
+              DSB::Models::Error.new(params)
+            end
+
+          when DSB::Utils::Commands::REFRESH_DATA
+
+            if canRefreshData(params[:user_name], params[:team_domain])
+              DSB::Models::RefreshStoredData.new(DSB::Delegates::DataAcquisition::DuelystDb::DuelystDb.new, DSB::Delegates::DataStorage::SQLite.new)
+            else
+              DSB::Models::Error.new(params)
+            end
+
         end
 
         model
+      end
+
+      # Checks if particular user has permissions to refresh card data
+      def self.canRefreshData(user_name, team_domain)
+        file = File.open('./config.json', File::RDONLY)
+        config = JSON.parse(file.read, symbolize_names: true)
+        file.close
+
+        permissions = config[:refresh_cards_permissions]
+
+        user_name == permissions[:user_name] && team_domain == permissions[:team_domain]
       end
 
     end

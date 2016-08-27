@@ -1,12 +1,20 @@
 require_relative 'base'
+require './utils/commands'
 
 module DSB
   module Views
     class Error < Base
 
-      # Build the view based on params, cache it and return at the end
+      # Build view responsible for reporting command errors
       def initialize(params)
-        @value = ':desert: Parameters not recognized. Please practice input/output operations on _Tupperware Shape O Sorter_.'
+
+        case params[:command]
+          when DSB::Utils::Commands::REFRESH_DATA
+            @value = ':desert: Insufficient permissions - please check configuration file. '
+          else
+            @value = ':desert: Invalid parameters.'
+        end
+
       end
 
     end
