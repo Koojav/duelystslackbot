@@ -40,12 +40,20 @@ module DSB
         # @param [Array] cards Array of [DSB::ValueObject::Card] to be displayed in the view
         # @return [String] text of the response
         def self.multiple_cards(cards)
-          response[:text] = "Results:\n"
+          text = "Results:\n"
 
           cards.each_with_index do |card, index|
-            rarity = emojify ? emojis["rarity_#{card.rarity.downcase}".to_sym] : card.rarity
-            response[:text] << "> #{index+1}. #{card.name}  |  #{card.type}  |  #{rarity}\n"
+
+            if emojis["rarity_#{card.rarity.downcase}".to_sym] != ''
+              rarity = emojis["rarity_#{card.rarity.downcase}".to_sym]
+            else
+              rarity = card.rarity
+            end
+
+            text << "> #{index+1}. #{card.name}  |  #{card.type}  |  #{rarity}\n"
           end
+
+          text
         end
 
         def self.too_many_cards
