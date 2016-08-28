@@ -1,5 +1,4 @@
 require_relative 'base'
-require './views/card/image'
 require './views/card/descriptive'
 
 module DSB

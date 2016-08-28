@@ -1,6 +1,8 @@
 require_relative '../base'
 require 'open-uri'
 require './value_objects/card'
+require './consts/faction'
+require './consts/rarity'
 
 module DSB
   module Delegates
@@ -15,9 +17,25 @@ module DSB
           # @return [Array] of [DSB::ValueObjects::Card]
           def collect_card_data
 
-            rarities      = ['Base','Common','Rare','Epic','Legendary']
-            factions      = ['','Lyonar','Songhai','Vetruvian','Abyssian','Magmar','Vanar']
-            factions[100] = 'Neutral'
+            rarities = [
+                DSB::Const::Rarity::BASE,
+                DSB::Const::Rarity::COMMON,
+                DSB::Const::Rarity::RARE,
+                DSB::Const::Rarity::EPIC,
+                DSB::Const::Rarity::LEGENDARY
+            ]
+
+            factions = [
+                '',
+                DSB::Const::Faction::LYONAR,
+                DSB::Const::Faction::SONGHAI,
+                DSB::Const::Faction::VETRUVIAN,
+                DSB::Const::Faction::ABYSSIAN,
+                DSB::Const::Faction::MAGMAR,
+                DSB::Const::Faction::VANAR
+            ]
+
+            factions[100] = DSB::Const::Faction::NEUTRAL
 
             cards = []
 

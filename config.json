@@ -8,6 +8,14 @@
   {
     "port" : 4567,
     "card_command_endpoint": "dsb_card",
-    "refresh_cards_command_endpoint": "dsb_refresh_cards"
+    "refresh_cards_command_endpoint": "dsb_refreshcards",
+    "emojis":
+    {
+      "rarity_base"       : "",
+      "rarity_common"     : ":common:",
+      "rarity_rare"       : ":rare:",
+      "rarity_epic"       : ":epic:",
+      "rarity_legendary"  : ":legendary:"
+    }
   }
 }

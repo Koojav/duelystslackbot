@@ -1,11 +1,12 @@
 # Duelyst Slack Bot
-Ruby based custom integration for Slack that retrieves information about Duelyst cards onto chats.
+Ruby based integration for Slack's slash commands that retrieves information about Duelyst cards onto chats.
 
 # Prerequisites
 
-Ruby 2.2.4+  
-Bundler `gem install bundler`  
-All other dependencies will be installed automatically when following steps described below.
+ - Ruby 2.0.0+  
+ - SQLite 3.7+  
+ - Bundler `gem install bundler`  
+ - All other dependencies will be installed automatically when following steps described below.
 
 # Installation & Configuration
 
@@ -32,10 +33,16 @@ IP/Address of this server will from now on be called **SERVER**
     Address to which Slack will POST data on command that refreshes card database (eg. /refreshcards)  
     **Full path:** SERVER/REFRESH_CARDS_COMMAND_ENDPOINT  
     **Default value:** `dsb_refresh_cards`
+    
+    - `emojis`
+    List of emojis to be used instead of normal literals.  
+    When a particular field has a value different than empty string it will send that emoji instead of usual literal.  
+    **Example:** `"rarity_legendary":":dsb_legendary"`
+    
  
-#### Configure Slack's custom commands for your team.
+#### Configure Slack's slash commands for your team.
 
-Usings Slack's web interface add two custom commands that will communicate with Ruby application.  
+Usings Slack's web interface add two slash commands that will communicate with Ruby application.  
 Command names used below are just an example and can be set to whatever suites your team best.
     
  - `/card`  
@@ -71,6 +78,8 @@ After all the configuration is done (Ruby process running on the server, Slack's
  - `/card PARTIAL_CARDNAME`  
  Displays info about cards that match specified pattern.  
  In-depth info is displayed only for searches matching one card, for searches that return up to 9 results simple list is displayed, above that more precise query is required.
+ 
+**Reminder:** Commmands' names are exemplary and can be set, in Slack's custom command configuration, to whatever suits your needs best.
  
  
  

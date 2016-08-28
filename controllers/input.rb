@@ -46,7 +46,7 @@ module DSB
 
       # Checks if particular user has permissions to refresh card data
       def self.canRefreshData(user_name, team_domain)
-        permissions = DSB::Config.get[:refresh_cards_permissions]
+        permissions = DSB::Utils::Config.get[:refresh_cards_permissions]
         user_name == permissions[:user_name] && team_domain == permissions[:team_domain]
       end
 

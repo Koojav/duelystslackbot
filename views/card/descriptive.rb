@@ -1,5 +1,6 @@
 require './views/base'
 require 'json'
+require_relative 'responses'
 
 module DSB
   module Views
@@ -12,33 +13,14 @@ module DSB
           response = {}
           response[:response_type] = 'in_channel'
 
-
           if cards.length == 0
-            response[:text] = ':desert: No cards found in database.'
+            response[:text] = DSB::Views::Card::Responses.no_cards
           elsif cards.length == 1
-
-            card = cards[0]
-              response[:text] = ''
-              response[:text] << "> *Card:*    *#{card.name}*                #{card.faction}  |  #{card.type}  |  #{card.rarity}\n"
-
-              if card.type != 'Spell' && card.type != 'Artifact'
-                response[:text] << "> *Stats:*   #{card.attack}  /  #{card.health}\n"
-              end
-
-              response[:text] << "> *Cost:*    #{card.mana_cost}\n"
-              response[:text] << "> *Desc:*    #{card.description.gsub('<b>','*').gsub('</b>','*').gsub('<br>',' ')}\n"
-              response[:text] << "> *Image:*   #{card.image_url}\n"
-
+            response[:text] = DSB::Views::Card::Responses.single_card(cards[0])
           elsif cards.length < 10
-            response[:text] = "Results:\n"
-
-            cards.each_with_index do |card, index|
-              response[:text] << "> #{index+1}. #{card.name}  |  #{card.type}  |  #{card.rarity}\n"
-            end
-
+            response[:text] = DSB::Views::Card::Responses.multiple_cards(cards)
           else
-
-            response[:text] = 'Ocean of results. Could you be a little bit more _pacific_? (Get it? P A C I F I C    O C E A N. Duh.)'
+            response[:text] = DSB::Views::Card::Responses.too_many_cards
           end
 
           @value = response.to_json
