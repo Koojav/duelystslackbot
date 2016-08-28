@@ -6,7 +6,7 @@ module DSB
       COMMON    = 'Common'
       RARE      = 'Rare'
       EPIC      = 'Epic'
-      LEGENDARY = 'Legedary'
+      LEGENDARY = 'Legendary'
 
     end
   end
