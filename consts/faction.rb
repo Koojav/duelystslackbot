@@ -1,4 +1,4 @@
-addmodule DSB
+module DSB
   module Const
     class Faction
 
